@@ -1,0 +1,712 @@
+@import url('https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&display=swap');
+
+:root {
+  --bg-abyss: #060208;
+  --bg-velvet: #11040b;
+  --wine-deep: #3d0410;
+  --crimson: #8f0b24;
+  --blood-rose: #d91636;
+  --rose-glow: rgba(217, 22, 54, 0.38);
+  --parchment: #efe3e6;
+  --silver-muted: #b39aa0;
+  --ornament-border: #5c1322;
+  --ornament-highlight: #a8243f;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  min-height: 100vh;
+  min-height: 100dvh;
+  background-color: var(--bg-abyss);
+  background-image:
+    radial-gradient(circle at 50% 35%, rgba(92, 8, 26, 0.28) 0%, transparent 60%),
+    radial-gradient(circle at 15% 80%, rgba(61, 4, 16, 0.25) 0%, transparent 50%),
+    radial-gradient(circle at 85% 20%, rgba(61, 4, 16, 0.25) 0%, transparent 50%),
+    linear-gradient(180deg, #040106 0%, #0b0209 50%, #040106 100%);
+  color: var(--parchment);
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  overflow-x: hidden;
+  position: relative;
+  padding:
+    env(safe-area-inset-top)
+    env(safe-area-inset-right)
+    env(safe-area-inset-bottom)
+    env(safe-area-inset-left);
+}
+
+body.no-scroll {
+  overflow: hidden;
+}
+
+/* Vinheta Gótica nas Bordas da Tela */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(circle at center, transparent 52%, rgba(0, 0, 0, 0.85) 100%);
+  z-index: 1;
+}
+
+/* Moldura Externa da Página */
+.page-frame {
+  position: fixed;
+  inset: 14px;
+  border: 1px solid rgba(143, 11, 36, 0.35);
+  box-shadow: inset 0 0 0 4px var(--bg-abyss), inset 0 0 0 5px rgba(143, 11, 36, 0.18);
+  pointer-events: none;
+  z-index: 10;
+}
+
+.page-frame::before,
+.page-frame::after {
+  content: "✥";
+  position: absolute;
+  color: var(--crimson);
+  font-size: 1.2rem;
+  text-shadow: 0 0 10px var(--rose-glow);
+}
+
+.page-frame::before {
+  top: -11px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--bg-abyss);
+  padding: 0 12px;
+}
+
+.page-frame::after {
+  bottom: -11px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--bg-abyss);
+  padding: 0 12px;
+}
+
+/* Pétalas / Brasas Flutuantes no Fundo */
+.embers {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.ember {
+  position: absolute;
+  bottom: -20px;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--blood-rose);
+  box-shadow: 0 0 10px 2px var(--blood-rose);
+  opacity: 0;
+  animation: floatUp linear infinite;
+}
+
+@keyframes floatUp {
+  0% {
+    transform: translateY(0) translateX(0) scale(0.6);
+    opacity: 0;
+  }
+  20% {
+    opacity: 0.65;
+  }
+  80% {
+    opacity: 0.45;
+  }
+  100% {
+    transform: translateY(-105vh) translateX(35px) scale(1.2);
+    opacity: 0;
+  }
+}
+
+/* Container Principal */
+.sanctuary {
+  position: relative;
+  z-index: 2;
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 2.5rem 2rem 4rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+}
+
+/* Cabeçalho Gótico Romântico */
+.gothic-header {
+  text-align: center;
+  max-width: 680px;
+  margin-top: 0.5rem;
+  padding: 0 0.5rem;
+}
+
+.crest {
+  font-size: 1.4rem;
+  color: var(--blood-rose);
+  letter-spacing: 0.5rem;
+  text-shadow: 0 0 14px var(--rose-glow);
+  margin-bottom: 0.35rem;
+}
+
+.gothic-title {
+  font-family: 'Cinzel Decorative', serif;
+  font-weight: 700;
+  font-size: clamp(1.65rem, 4.5vw, 3.1rem);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--parchment);
+  text-shadow:
+    0 2px 4px #000,
+    0 0 22px rgba(217, 22, 54, 0.55),
+    0 0 45px rgba(143, 11, 36, 0.35);
+}
+
+.gothic-subtitle {
+  margin-top: 0.5rem;
+  font-size: clamp(1rem, 2.2vw, 1.3rem);
+  line-height: 1.45;
+  font-style: italic;
+  color: var(--silver-muted);
+  letter-spacing: 0.05em;
+}
+
+.ornate-divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin: 0.9rem auto 0;
+  width: min(380px, 85vw);
+}
+
+.ornate-divider::before,
+.ornate-divider::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--crimson), transparent);
+}
+
+.ornate-divider span {
+  color: var(--blood-rose);
+  font-size: 1.1rem;
+  text-shadow: 0 0 10px var(--rose-glow);
+}
+
+/* Altar Central: Galeria + Coração */
+.altar-grid {
+  display: grid;
+  grid-template-columns: 270px minmax(320px, 640px) 270px;
+  align-items: center;
+  justify-content: center;
+  gap: 2.2rem;
+  width: 100%;
+}
+
+.side-wings {
+  display: flex;
+  flex-direction: column;
+  gap: 2.2rem;
+  align-items: center;
+}
+
+/* Moldura do Coração em Canvas */
+.heart-reliquary {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 0.75rem;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(92, 19, 34, 0.18) 0%, transparent 70%);
+}
+
+.heart-reliquary::before {
+  content: "";
+  position: absolute;
+  inset: 3%;
+  border-radius: 50%;
+  border: 1px dashed rgba(168, 36, 63, 0.22);
+  pointer-events: none;
+  animation: slowSpin 90s linear infinite;
+}
+
+@keyframes slowSpin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+#canvas {
+  display: block;
+  width: min(600px, 88vw);
+  height: min(600px, 88vw);
+  aspect-ratio: 1 / 1;
+  filter: drop-shadow(0 0 24px rgba(180, 12, 40, 0.3));
+  touch-action: manipulation;
+}
+
+/* Botão Gótico de Replay */
+.gothic-btn {
+  margin-top: 0.6rem;
+  background: linear-gradient(180deg, #1f050d 0%, #0d0206 100%);
+  color: var(--parchment);
+  font-family: 'Cinzel Decorative', serif;
+  font-size: 0.78rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  padding: 0.75rem 1.5rem;
+  min-height: 44px;
+  border: 1px solid var(--ornament-border);
+  box-shadow:
+    0 0 15px rgba(143, 11, 36, 0.25),
+    inset 0 0 8px rgba(217, 22, 54, 0.15);
+  cursor: pointer;
+  touch-action: manipulation;
+  transition: all 0.35s ease;
+  position: relative;
+}
+
+.gothic-btn:hover,
+.gothic-btn:active {
+  border-color: var(--blood-rose);
+  color: #fff;
+  box-shadow:
+    0 0 22px rgba(217, 22, 54, 0.6),
+    inset 0 0 12px rgba(217, 22, 54, 0.35);
+  transform: translateY(-2px);
+}
+
+/* Molduras Gótico-Românticas para as Fotos */
+.portrait-card {
+  position: relative;
+  width: 100%;
+  max-width: 265px;
+  background: linear-gradient(145deg, #16040b, #080104);
+  padding: 12px 12px 16px;
+  border: 1px solid var(--ornament-border);
+  box-shadow:
+    0 14px 35px rgba(0, 0, 0, 0.85),
+    0 0 20px rgba(143, 11, 36, 0.2),
+    inset 0 0 0 3px #070104,
+    inset 0 0 0 4px rgba(168, 36, 63, 0.32);
+  transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+              box-shadow 0.45s ease,
+              border-color 0.45s ease;
+  cursor: pointer;
+  touch-action: manipulation;
+}
+
+.portrait-card:nth-child(odd) {
+  transform: rotate(-1.8deg);
+}
+
+.portrait-card:nth-child(even) {
+  transform: rotate(1.8deg);
+}
+
+.portrait-card:hover,
+.portrait-card:active {
+  transform: rotate(0deg) scale(1.04) translateY(-4px);
+  border-color: var(--blood-rose);
+  box-shadow:
+    0 18px 42px rgba(0, 0, 0, 0.95),
+    0 0 28px rgba(217, 22, 54, 0.5),
+    inset 0 0 0 3px #070104,
+    inset 0 0 0 4px rgba(217, 22, 54, 0.65);
+  z-index: 5;
+}
+
+/* Cantoneiras Ornamentais das Fotos */
+.portrait-card .corner {
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  border-color: var(--ornament-highlight);
+  border-style: solid;
+  pointer-events: none;
+  transition: border-color 0.35s ease;
+}
+
+.portrait-card:hover .corner,
+.portrait-card:active .corner {
+  border-color: var(--blood-rose);
+}
+
+.corner.tl { top: 4px; left: 4px; border-width: 2px 0 0 2px; }
+.corner.tr { top: 4px; right: 4px; border-width: 2px 2px 0 0; }
+.corner.bl { bottom: 4px; left: 4px; border-width: 0 0 2px 2px; }
+.corner.br { bottom: 4px; right: 4px; border-width: 0 2px 2px 0; }
+
+/* Arco Gótico Suave na Imagem */
+.portrait-img-wrap {
+  position: relative;
+  overflow: hidden;
+  border-radius: 110px 110px 6px 6px;
+  border: 1px solid rgba(168, 36, 63, 0.45);
+  aspect-ratio: 4 / 3;
+  background: #050103;
+}
+
+.portrait-img-wrap::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at center, transparent 45%, rgba(12, 2, 6, 0.65) 100%),
+    linear-gradient(180deg, rgba(143, 11, 36, 0.12), rgba(6, 2, 8, 0.35));
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+}
+
+.portrait-card:hover .portrait-img-wrap::after,
+.portrait-card:active .portrait-img-wrap::after {
+  opacity: 0.35;
+}
+
+.portrait-img-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  filter: contrast(1.06) saturate(0.88) sepia(0.12);
+  transition: transform 0.6s ease, filter 0.5s ease;
+}
+
+.portrait-card:hover .portrait-img-wrap img,
+.portrait-card:active .portrait-img-wrap img {
+  transform: scale(1.07);
+  filter: contrast(1.08) saturate(1.08) sepia(0);
+}
+
+.portrait-caption {
+  margin-top: 0.7rem;
+  text-align: center;
+  font-family: 'Cinzel Decorative', serif;
+  font-size: 0.75rem;
+  letter-spacing: 0.14em;
+  color: var(--silver-muted);
+  text-transform: uppercase;
+  transition: color 0.3s ease;
+}
+
+.portrait-card:hover .portrait-caption,
+.portrait-card:active .portrait-caption {
+  color: var(--parchment);
+  text-shadow: 0 0 10px var(--rose-glow);
+}
+
+/* Rodapé Romântico */
+.gothic-footer {
+  text-align: center;
+  margin-top: 0.5rem;
+  padding: 0 1rem;
+  color: var(--silver-muted);
+  font-size: 1.05rem;
+  font-style: italic;
+  letter-spacing: 0.05em;
+}
+
+.gothic-footer span {
+  color: var(--blood-rose);
+  padding: 0 0.4rem;
+}
+
+/* Lightbox Modal para Ampliar Foto */
+.lightbox {
+  position: fixed;
+  inset: 0;
+  background: rgba(4, 1, 6, 0.94);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+  padding: 1.25rem;
+  touch-action: pan-y;
+}
+
+.lightbox.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.lightbox-frame {
+  position: relative;
+  max-width: min(760px, 90vw);
+  background: #0e0207;
+  padding: 14px;
+  border: 1px solid var(--blood-rose);
+  box-shadow:
+    0 0 50px rgba(217, 22, 54, 0.4),
+    inset 0 0 0 4px #060104,
+    inset 0 0 0 5px rgba(168, 36, 63, 0.5);
+}
+
+.lightbox-frame img {
+  display: block;
+  max-width: 100%;
+  max-height: 70vh;
+  max-height: 70dvh;
+  object-fit: contain;
+  margin: 0 auto;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+.lightbox-controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 0.75rem;
+}
+
+.lightbox-caption {
+  flex: 1;
+  text-align: center;
+  font-family: 'Cinzel Decorative', serif;
+  font-size: clamp(0.75rem, 2.5vw, 0.95rem);
+  letter-spacing: 0.16em;
+  color: var(--parchment);
+}
+
+.lightbox-nav {
+  background: #1a040c;
+  border: 1px solid rgba(217, 22, 54, 0.6);
+  color: var(--parchment);
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  font-size: 1.2rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  touch-action: manipulation;
+  transition: background 0.25s ease, transform 0.25s ease;
+}
+
+.lightbox-nav:hover,
+.lightbox-nav:active {
+  background: var(--crimson);
+  transform: scale(1.08);
+}
+
+.lightbox-close {
+  position: absolute;
+  top: -14px;
+  right: -14px;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: #1a040c;
+  border: 1px solid var(--blood-rose);
+  color: var(--parchment);
+  font-size: 1.1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 12px var(--rose-glow);
+  touch-action: manipulation;
+  z-index: 2;
+}
+
+/* Dispositivos Touch: Fotos mais vivas sem depender de hover */
+@media (hover: none) {
+  .portrait-img-wrap img {
+    filter: contrast(1.06) saturate(0.98) sepia(0.05);
+  }
+}
+
+/* =========================================================
+   RESPONSIVIDADE: TABLETS (Retrato e Paisagem) — até 1120px
+   ========================================================= */
+@media (max-width: 1120px) {
+  .sanctuary {
+    padding: 2rem 1.5rem 3.5rem;
+    gap: 1.75rem;
+  }
+
+  /* Grade unificada 2x2 para as 4 fotos abaixo do coração */
+  .altar-grid {
+    grid-template-columns: repeat(2, minmax(0, 270px));
+    justify-content: center;
+    gap: 1.6rem;
+  }
+
+  .heart-reliquary {
+    grid-column: 1 / -1;
+    order: -1;
+    margin-bottom: 0.4rem;
+  }
+
+  .side-wings {
+    display: contents;
+  }
+
+  .portrait-card {
+    max-width: 100%;
+    justify-self: center;
+  }
+
+  #canvas {
+    width: min(540px, 84vw);
+    height: min(540px, 84vw);
+  }
+}
+
+/* =========================================================
+   RESPONSIVIDADE: CELULARES (Smartphones) — até 640px
+   ========================================================= */
+@media (max-width: 640px) {
+  .page-frame {
+    inset: 7px;
+  }
+
+  .sanctuary {
+    padding: 1.5rem 0.9rem 2.6rem;
+    gap: 1.35rem;
+  }
+
+  .crest {
+    font-size: 1.15rem;
+    letter-spacing: 0.35rem;
+  }
+
+  .gothic-title {
+    font-size: clamp(1.45rem, 7vw, 2rem);
+    letter-spacing: 0.1em;
+  }
+
+  .gothic-subtitle {
+    font-size: 0.98rem;
+    padding: 0 0.25rem;
+  }
+
+  .ornate-divider {
+    margin-top: 0.65rem;
+  }
+
+  .heart-reliquary {
+    padding: 0.25rem;
+  }
+
+  #canvas {
+    width: min(420px, 92vw);
+    height: min(420px, 92vw);
+  }
+
+  .gothic-btn {
+    font-size: 0.72rem;
+    letter-spacing: 0.14em;
+    padding: 0.65rem 1.2rem;
+  }
+
+  /* Galeria 2x2 simétrica no celular */
+  .altar-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.85rem;
+    max-width: 440px;
+  }
+
+  .portrait-card {
+    padding: 7px 7px 11px;
+  }
+
+  .portrait-card:nth-child(odd) {
+    transform: rotate(-1deg);
+  }
+
+  .portrait-card:nth-child(even) {
+    transform: rotate(1deg);
+  }
+
+  .portrait-img-wrap {
+    border-radius: 75px 75px 4px 4px;
+  }
+
+  .portrait-caption {
+    margin-top: 0.5rem;
+    font-size: 0.62rem;
+    letter-spacing: 0.08em;
+  }
+
+  .corner {
+    width: 10px !important;
+    height: 10px !important;
+  }
+
+  .gothic-footer {
+    font-size: 0.92rem;
+  }
+
+  .lightbox {
+    padding: 0.75rem;
+  }
+
+  .lightbox-frame {
+    max-width: 94vw;
+    padding: 10px;
+  }
+
+  .lightbox-close {
+    top: 8px;
+    right: 8px;
+    width: 36px;
+    height: 36px;
+  }
+}
+
+/* =========================================================
+   CELULARES MUITO PEQUENOS — até 360px
+   ========================================================= */
+@media (max-width: 360px) {
+  .altar-grid {
+    gap: 0.65rem;
+  }
+
+  .portrait-caption {
+    font-size: 0.56rem;
+    letter-spacing: 0.05em;
+  }
+}
+
+/* =========================================================
+   MODO PAISAGEM (LANDSCAPE) EM CELULARES / TABLETS BAIXOS
+   ========================================================= */
+@media (max-height: 540px) and (orientation: landscape) {
+  .sanctuary {
+    padding: 1.2rem 1.5rem 2rem;
+    gap: 1rem;
+  }
+
+  #canvas {
+    width: min(360px, 72vh);
+    height: min(360px, 72vh);
+  }
+
+  .altar-grid {
+    grid-template-columns: repeat(4, minmax(0, 180px));
+    gap: 0.9rem;
+  }
+}
